@@ -185,7 +185,7 @@ export default function Home() {
             <button className="absolute right-3 top-2 bg-gray-300 rounded-full w-6 h-6 p-1 flex justify-center items-center text-white" onClick={()=>setShowExampleModal(false)}>
               <Close className="fill-black" />
             </button>
-            <h2 className="text-center py-4">Ejemplo de foto de la tienda</h2>
+            <h2 className="text-center py-4 text-black">Ejemplo de foto de la tienda</h2>
             <Carousel autoPlay={true} infiniteLoop={true} showArrows={true} swipeable={true}>
                 <div>
                     <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda1.png" />
