@@ -1,5 +1,5 @@
 {
-  "name": "tbko-next",
+  "name": "tbko-application",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.5"
+    "@rehooks/online-status": "^1.1.2",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-camera-pro": "^1.4.0",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.3.1",
+    "react-html5-camera-photo": "^1.5.11",
+    "react-responsive-carousel": "^3.2.23",
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
+    "styled-components": "^6.1.11",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "tailwind.config.js",
+  "author": "",
+  "license": "ISC"
 }
