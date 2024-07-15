@@ -1,7 +1,7 @@
 'use server'
 
 export async function SendStore(data) {
-    const postRequest = await fetch('http://tbko-api.test/store/new', {
+    const postRequest = await fetch('http://tbko.v360.mx/store/new', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
