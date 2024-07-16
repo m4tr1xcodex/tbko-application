@@ -11,13 +11,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import {isMobile} from 'react-device-detect';
 import { v4 as uuidv4 } from 'uuid';
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const [location, setLocation] = useState(null);
   const [photoUri, setPhotoUri] = useState(null);
   const [storeName, setStoreName] = useState('');
   const [showCamera, setShowCamera] = useState(false);
-  const [showExampleModal, setShowExampleModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false); 
   const refCamera = useRef(null);
@@ -79,15 +81,18 @@ export default function Home() {
     }
     await SendStore(data)
     .then(result => {
-      toast("Tienda tbko guardada", {
+      toast(<div className="w-full h-full flex justify-between">
+        <p>Tienda tbko guardada</p><Link href={`/store/${result?.store_uuid}`} className="text-blue-600">Ver</Link>
+      </div>, {
         type: 'success',
-        hideProgressBar: true
+        autoClose: 5000,
+        hideProgressBar: true,
       });
       setLocation(null);
       setPhotoUri('');
       setStoreName('');
       setShowCamera(false);
-      setShowExampleModal(false);
+      setShowModal(false);
       setFormLoading(false);
     })
     .catch(err=>{
@@ -102,21 +107,19 @@ export default function Home() {
   return <>
     <main className="flex min-h-screen flex-col items-center justify-between md:p-24 p-4 bg-[#f1f5f9] dark:bg-[rgba(0,0,0,.7)]">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className=" text-lg flex w-full justify-center pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:p-4">
+        <h2 className="text-2xl flex w-full justify-center pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:p-4">
           Comparte la ubicación de tu tienda
-        </p>
+        </h2>
         <div className="flex h-28 w-full items-end justify-center dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto">
-          <a
+          <Link
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={"/?href=title"}
           >
             <span>By</span>{" "}
             <span className="text-4xl mt-5 font-bold">
               <span className="text-[rgb(117,45,146)]">TB-</span><span className="text-[rgb(70,44,145)]">KO</span>
             </span>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -150,7 +153,7 @@ export default function Home() {
               { photoUri ? 'Volver a tomar foto' : 'Toma la foto de la tienda'}
               
             </button> 
-            <button className="border rounded-full bg-blue-200 h-8 w-8" onClick={()=>setShowExampleModal(true)}>?</button>
+            <button className="border rounded-full bg-blue-200 h-8 w-8" onClick={()=>setShowModal(true)}>?</button>
           </div>
         }
         <div className="mb-4 w-full">
@@ -178,31 +181,36 @@ export default function Home() {
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         
       </div>
-      {
-        showExampleModal && 
-        <div className="min-h-screen w-full absolute top-0 left-0 right-0 flex items-center justify-center z-50">
-          <div className="border rounded-md bg-white shadow-lg w-[90%] md:w-2/4 relative">
-            <button className="absolute right-3 top-2 bg-gray-300 rounded-full w-6 h-6 p-1 flex justify-center items-center text-white" onClick={()=>setShowExampleModal(false)}>
-              <Close className="fill-black" />
-            </button>
-            <h2 className="text-center py-4 text-black">Ejemplo de foto de la tienda</h2>
-            <Carousel autoPlay={true} infiniteLoop={true} showArrows={true} swipeable={true}>
-                <div>
-                    <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda1.png" />
-                </div>
-                <div>
-                    <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda4.png" />
-                </div>
-                <div>
-                    <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda3.png" />
-                </div>
-                <div>
-                    <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda2.png" />
-                </div>
-            </Carousel>
-          </div>
+      
+      <div
+        style={{
+          background: "rgba(0,0,0,.8)",
+          opacity: !showModal ? "0" : "1",
+          transition: "all .2s",
+          visibility: !showModal ? "hidden" : "visible"
+        }}
+        className="min-h-screen w-full absolute top-0 left-0 right-0 flex items-center justify-center z-50">
+        <div className="border rounded-md bg-white shadow-lg w-[90%] md:w-2/4 relative">
+          <button className="absolute right-3 top-2 bg-gray-300 rounded-full w-6 h-6 p-1 flex justify-center items-center text-white" onClick={()=>setShowModal(false)}>
+            <Close className="fill-black" />
+          </button>
+          <h2 className="text-center py-4 text-black">Ejemplo de foto de la tienda</h2>
+          <Carousel autoPlay={true} infiniteLoop={true} showArrows={true} swipeable={true}>
+              <div>
+                  <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda1.png" />
+              </div>
+              <div>
+                  <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda4.png" />
+              </div>
+              <div>
+                  <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda3.png" />
+              </div>
+              <div>
+                  <img src="https://enchulatutienda.com/wp-content/uploads/2023/06/Tienda2.png" />
+              </div>
+          </Carousel>
         </div>
-      }
+      </div>
       { 
         formLoading && 
         <div
