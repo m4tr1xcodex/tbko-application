@@ -84,7 +84,7 @@ export default function Page() {
                                                 </div>*/}
 
                                                 <div className="w-full overflow-hidden mx-auto aspect-w-16 aspect-h-8 md:mb-2 mb-4">
-                                                    <img src={`http://tbko.v360.mx${store?.photo}`} alt="Product 1"
+                                                    <img src={`http://tbko.v360.mx${store?.photo}`} alt={`store-${store?.uuid}`}
                                                     className="h-full w-full object-contain rounded-md" />
                                                 </div>
 
