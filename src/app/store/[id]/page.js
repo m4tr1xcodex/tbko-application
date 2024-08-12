@@ -53,7 +53,7 @@ export default function Page({params}) {
             </div>
             <div className="flex items-center justify-center bg-indigo-50 px-4 mt-32">
                 <div className="max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl">
-                    <img src={`https://tbko.v360.mx${store?.photo}`} alt="store-photo" className="h-auto w-full" />
+                    <img src={store?.photo?`https://tbko.v360.mx${store?.photo}`:'/camera.php'} alt="store-photo" className="h-auto w-full" />
                     <div className="p-5">
                         <div className="flex items-center justify-around mb-5">
                             <p className="text-medium text-gray-700">
